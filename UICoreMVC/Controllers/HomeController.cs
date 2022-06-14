@@ -27,33 +27,19 @@ namespace UICoreMVC.Controllers
         {
             var result = await _rootService.Listele();
             ViewData["List"] = result;
-
             return View();
         }
 
         public async Task<IActionResult> CapitalSearch(string capital)
         {
-            var result = await _rootService.Listele();
-            //var resultisNull = result.Where(a =>!string.IsNullOrEmpty(a.capital)).ToList();
-            //var filter = resultisNull.Where(a => a.capital.Contains(capital)).ToList();
-            var filter = (from item in result.ToList()
-                          where !string.IsNullOrEmpty(item.capital) && item.capital.Contains(capital)
-                          select item).ToList();
-
-
+            var filter = await _rootService.CapitalAra(capital);
             ViewData["List"] = filter;
             return View();
         }
 
         public async Task<IActionResult> GlobalSearch(string key)
         {
-            var result = await _rootService.Listele();
-            var filter = (from item in result.ToList()
-                where (!string.IsNullOrEmpty(item.capital) && item.capital.Contains(key)) ||
-                      (!string.IsNullOrEmpty(item.name) && item.name.Contains(key)) ||
-                      (!string.IsNullOrEmpty(item.region) && item.region.Contains(key))
-                select item).ToList();
-
+            var filter = await _rootService.GenelArama(key);
             ViewData["List"] = filter;
             return View();
         }

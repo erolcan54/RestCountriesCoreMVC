@@ -18,14 +18,38 @@ namespace UICoreMVC.APIService.Concrete
             _httpClient = httpClient;
         }
 
-        public Task<List<Root>> CapitalAra(string key)
+        public async Task<List<Root>> CapitalAra(string key)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync("https://restcountries.com/v2/all");
+            var data = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var myDeserializedClass = JsonConvert.DeserializeObject<List<Root>>(data);
+                var filter = (from item in myDeserializedClass.ToList()
+                    where !string.IsNullOrEmpty(item.capital) && item.capital.Contains(key)
+                    select item).ToList();
+                return filter;
+            }
+            return null;
         }
 
-        public Task<List<Root>> GenelArama(string key)
+        public async Task<List<Root>> GenelArama(string key)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync("https://restcountries.com/v2/all");
+            var data = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var myDeserializedClass = JsonConvert.DeserializeObject<List<Root>>(data);
+                var filter = (from item in myDeserializedClass
+                    where (!string.IsNullOrEmpty(item.capital) && item.capital.Contains(key)) ||
+                          (!string.IsNullOrEmpty(item.name) && item.name.Contains(key)) ||
+                          (!string.IsNullOrEmpty(item.region) && item.region.Contains(key))
+                    select item).ToList();
+                return filter;
+            }
+            return null;
         }
 
         public async Task<List<Root>> Listele()
