@@ -24,7 +24,7 @@
                 <form method="get" asp-action="CapitalSearch" asp-controller="Home">
                     <div class="mb-2">
                         <label for="capital" class="form-label">Capital Aranacak Kelime</label>
-                        <input class="form-control" type="text" asp-for="capital" placeholder="Capital adını yazınız">
+                        <input class="form-control" type="text" asp-for="capital" required placeholder="Capital adını yazınız">
                     </div>
                     <div class="mb-2 text-center">
                         <button class="btn btn-primary" id="btnsave" type="submit">Gönder</button>
@@ -54,7 +54,7 @@
                 <form method="get" asp-action="GlobalSearch" asp-controller="Home">
                     <div class="mb-2">
                         <label for="key" class="form-label">Global Aranacak Kelime</label>
-                        <input class="form-control" type="text" name="key" placeholder="Global key yazınız">
+                        <input class="form-control" type="text" name="key" required placeholder="Global key yazınız">
                     </div>
                     <div class="mb-2 text-center">
                         <button class="btn btn-primary" id="btnsave" type="submit">Gönder</button>
@@ -64,7 +64,7 @@
         </div>
     </div>
 </div>
-<div class="alert alert-danger text-center mt-1">Arama yapılacak kelimelerde <strong>BÜYÜK/küçük</strong> harf ayrımı vardır.</div>
+
 <div class="container">
     <br />
     <div style="margin:0 auto;">
